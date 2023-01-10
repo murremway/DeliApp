@@ -39,3 +39,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy to tomcat
         run: sudo curl -v -u ${{ secrets.TOMCAT_USER_NAME }}:${{ secrets.TOMCAT_PASS }} -T /home/runner/work/DeliApp/DeliApp/target/DeliApp.war 'http://34.201.242.12:8080'
+        with:
+          host: 34.201.242.12
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
