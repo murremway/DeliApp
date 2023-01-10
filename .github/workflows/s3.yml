@@ -38,4 +38,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy to tomcat
-        run: sudo curl -v -u ${{ secrets.TOMCAT_USER_NAME }}:${{ secrets.TOMCAT_PASS }} -T /home/runner/work/DeliApp/DeliApp/target/DeliApp.war 'http://34.201.242.12:8080/DeliApp'
+        run: sudo curl -v -u ${{ secrets.TOMCAT_USER_NAME }}:${{ secrets.TOMCAT_PASS }} -T /home/runner/work/DeliApp/DeliApp/target/DeliApp.war 'http://34.201.242.12:8080'
