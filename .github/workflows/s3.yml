@@ -26,10 +26,11 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=murremway_FoiApp
       - name: upload artifacts
-        uses: actions/upload-artifact@v2
+        run: mkdir staging && cp target/*.war staging
+      - uses: actions/upload-artifact@v2
         with:
-          name: DeliApp.war
-          path: sgithub-actions-java-maven/target/github-actions-java-maven.war
+          name: Package
+          path: staging
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -44,5 +45,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           commands: |
-            scp github-actions-java-maven/target ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
+            scp scp target/*.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
+            ssh ubuntu@34.201.242.12 "cd /var/lib/tomcat8/webapps && manager-script deploy *.war"
  
