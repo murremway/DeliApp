@@ -43,9 +43,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
-        with:
-          source: github-actions-java-maven/target/github-actions-java-maven.war
-          target: "ubuntu@34.201.242.12:/var/lib/tomcat8/webapps"
-          strip_components: 1
+          commands: |
+            scp github-actions-java-maven/target/github-actions-java-maven.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
  
  
