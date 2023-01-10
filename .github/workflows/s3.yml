@@ -25,12 +25,12 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}  # Needed to get PR information, if any
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=murremway_FoiApp
-      - name: upload artifacts
-        run: mkdir staging && cp target/*.war staging
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Package
-          path: staging
+      # - name: upload artifacts
+      #   run: mkdir staging && cp target/*.war staging
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Package
+      #     path: staging
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
