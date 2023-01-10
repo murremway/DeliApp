@@ -42,7 +42,7 @@ jobs:
         with:
           host: 34.201.242.12
           username: ubuntu
-          private-key: ${{ secrets.EC2_PRIVATE_KEY }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           commands: |
             scp target/*.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
