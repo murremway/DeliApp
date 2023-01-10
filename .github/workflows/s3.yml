@@ -38,5 +38,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy to tomcat
-        run: scp target/*.war ssh -i "class.pem" ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
+        uses: actions/ssh-remote@v1
+        with:
+          host: ubuntu@34.201.242.12
+          private-key: ${{ secrets.EC2_PRIVATE_KEY }}
+          commands: |
+            scp target/*.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
  
