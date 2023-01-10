@@ -1,0 +1,25 @@
+name: Deploy to Tomcat
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - run: mvn package
+      - uses: horochx/deploy-via-scp@1.1.0
+        with:
+          host: 34.201.242.12
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          commands: |
+            scp /home/runner/work/DeliApp/DeliApp ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
+      - run: ssh ubuntu@34.201.242.12 "cd /var/lib/tomcat8/webapps && manager-script deploy *.war"
