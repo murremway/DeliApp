@@ -45,8 +45,8 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
         with:
-          source: target/*.war
-          target: "/var/lib/tomcat8/webapps"
+          source: staging/target/*.war
+          target: "ubuntu@34.201.242.12:/var/lib/tomcat8/webapps"
           strip_components: 1
  
  
