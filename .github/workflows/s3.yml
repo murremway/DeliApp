@@ -26,10 +26,11 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=murremway_FoiApp
       - name: upload artifacts
-        uses: actions/upload-artifact@v2
+        run: mkdir staging && cp target/*.war staging
+      - uses: actions/upload-artifact@v2
         with:
-          name: artifact.war
-          path: github-actions-java-maven/target/github-actions-java-maven.war
+          name: Package
+          path: staging
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -37,13 +38,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy to tomcat
-        uses: appleboy/scp-action@master
-        env:
-          host: 34.201.242.12
-          username: ubuntu
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
+        uses: actions/ssh-remote@v3
+        with:
+          host: ubuntu@34.201.242.12
+          private-key: ${{ secrets.EC2_PRIVATE_KEY }}
           commands: |
-            scp github-actions-java-maven/target/github-actions-java-maven.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
- 
+            scp target/*.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
  
