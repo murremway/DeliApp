@@ -38,7 +38,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: deploy to tomcat
-        uses: actions/ssh-remote@v1
+        uses: actions/ssh-remote@v3
         with:
           host: ubuntu@34.201.242.12
           private-key: ${{ secrets.EC2_PRIVATE_KEY }}
