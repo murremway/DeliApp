@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: DeliApp.war
-          path: sgithub-actions-java-maven/target/github-actions-java-maven.jar
+          path: sgithub-actions-java-maven/target/github-actions-java-maven.war
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
