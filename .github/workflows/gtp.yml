@@ -15,4 +15,9 @@ jobs:
           java-version: '11'
       - run: mvn package
       - run: scp target/*.war ubuntu@34.201.242.12:/var/lib/tomcat8/webapps
+        with:
+          host: 34.201.242.12
+          username: ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
       - run: ssh ubuntu@34.201.242.12 "cd /var/lib/tomcat8/webapps && manager-script deploy *.war"
